@@ -25,6 +25,13 @@ export default function Home() {
 
 function Divider() {
   return (
-    <div className="mx-auto h-px w-full max-w-5xl bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
+    <div className="relative mx-auto w-full max-w-5xl">
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
+      <div
+        aria-hidden
+        className="mx-auto h-[1px] w-24 -translate-y-px bg-[var(--accent)]"
+        style={{ boxShadow: "0 0 12px var(--accent-glow)" }}
+      />
+    </div>
   );
 }

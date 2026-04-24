@@ -9,12 +9,12 @@ export function About() {
     <section id="about" className="w-full px-6 py-24 sm:px-10">
       <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <div className="flex items-center gap-3 font-mono text-xs tracking-widest text-[var(--muted)]">
-            <span className="h-px w-8 bg-[var(--accent)]" />
+          <div className="flex items-center gap-3 font-mono text-[11px] font-medium tracking-[0.25em] text-[var(--muted)]">
+            <span className="h-[2px] w-10 m-stripe rounded-full" />
             SOBRE MÍ
           </div>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Código afinado como un motor bien tuneado.
+          <h2 className="mt-3 text-3xl font-light tracking-tight sm:text-4xl">
+            Código afinado como un <span className="font-semibold text-[var(--accent)]">motor</span> bien tuneado.
           </h2>
 
           <div className="mt-6 flex flex-col gap-5 text-base leading-relaxed text-[var(--muted)]">
