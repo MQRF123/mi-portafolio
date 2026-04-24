@@ -32,13 +32,10 @@ function F1Car() {
 
   return (
     <primitive
-      object={scene}
-      // scale: at 1.2 fills screen, so 0.4 = ~1/3 size — adjust ±0.1 to taste
-      scale={0.4}
-      // Right and down within canvas — clear of text
-      position={[0.8, -0.5, 0]}
-      // 3/4 front view: X tilts nose down, Y turns ~54° for front-left corner
-      rotation={[-0.1, Math.PI * 0.3, 0]}
+    object={scene}
+    scale={0.8}
+    position={[1.5, -0.4, -0.7]}
+    rotation={[0.02, -0.4, 0.2]}
     />
   );
 }
@@ -53,10 +50,10 @@ export function F1Scene() {
     >
       <Suspense fallback={null}>
         <Float
-          speed={1.4}
-          rotationIntensity={0.15}
-          floatIntensity={0.35}
-          floatingRange={[-0.08, 0.08]}
+          speed={1.2}
+          rotationIntensity={0.04}
+          floatIntensity={0.9}
+          floatingRange={[-0.15, 0.15]}
         >
           <F1Car />
         </Float>
