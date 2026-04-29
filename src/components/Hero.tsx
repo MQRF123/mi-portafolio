@@ -1,5 +1,3 @@
-import { F1SceneDynamic } from "@/components/F1SceneDynamic";
-
 export function Hero() {
   return (
     <section
@@ -10,13 +8,6 @@ export function Hero() {
         <div className="absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[var(--accent-soft)] blur-3xl" />
         <div className="absolute right-0 top-1/4 h-[380px] w-[380px] rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(46,155,226,0.10), transparent 70%)" }} />
         <div className="absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
-      </div>
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[70%] lg:block"
-      >
-        <F1SceneDynamic />
       </div>
 
       <div className="relative mx-auto w-full max-w-5xl animate-fade-up">

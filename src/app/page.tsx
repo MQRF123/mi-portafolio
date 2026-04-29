@@ -4,16 +4,17 @@ import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import { Stack } from "@/components/Stack";
+import { F1ScrollSceneDynamic } from "@/components/F1ScrollSceneDynamic";
 
 export default function Home() {
   return (
     <>
+      <F1ScrollSceneDynamic />
       <Navbar />
-      <main className="flex w-full flex-1 flex-col">
+      <main className="relative z-10 flex w-full flex-1 flex-col">
         <Hero />
         <Divider />
         <Stack />
-        <Divider />
         <Projects />
         <Divider />
         <About />

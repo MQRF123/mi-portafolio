@@ -58,43 +58,38 @@ export function F1Scene() {
           <F1Car />
         </Float>
 
-        {/* Strong ambient — dark navy matte needs this or it goes pitch black */}
-        <ambientLight intensity={3} />
+        {/* Low ambient — texturas originales quedan subordinadas */}
+        <ambientLight intensity={1.5} />
 
-        {/* Cold key — top-left, main illumination */}
+        {/* Key — azul frío #2e9be2, arriba-izquierda, baña nariz y halo */}
         <spotLight
-          position={[-4, 6, 4]}
-          intensity={14}
-          color="#c8e4ff"
-          angle={0.5}
-          penumbra={0.8}
+          position={[-5, 9, 3]}
+          intensity={22}
+          color="#2e9be2"
+          angle={0.38}
+          penumbra={0.75}
           castShadow
         />
 
-        {/* Red Bull red accent — rear-right */}
+        {/* Rim / contraluz — rojo neón #ff2d3a, trasera derecha, recorta silueta */}
         <spotLight
-          position={[5, 3, -2]}
-          intensity={10}
-          color="#ff1801"
-          angle={0.4}
-          penumbra={0.6}
+          position={[6, 5, -6]}
+          intensity={28}
+          color="#ff2d3a"
+          angle={0.28}
+          penumbra={0.35}
         />
-
-        {/* Front fill — softens shadows on nose/front wing */}
-        <pointLight position={[0, 2, 5]} intensity={5} color="#ffffff" />
-
-        {/* Blue rim from below — picks up underfloor silhouette */}
-        <pointLight position={[1, -2, 1]} intensity={3} color="#1a3aff" />
 
         <Environment preset="night" />
 
+        {/* Underglow LED — rojo reflejado en asfalto */}
         <ContactShadows
           position={[0, -1.2, 0]}
-          opacity={0.45}
+          opacity={0.6}
           scale={14}
-          blur={3}
+          blur={3.5}
           far={4}
-          color="#ff1801"
+          color="#ff2d3a"
         />
       </Suspense>
     </Canvas>
