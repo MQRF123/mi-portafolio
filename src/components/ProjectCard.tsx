@@ -1,6 +1,19 @@
+"use client";
+
 import type { Project } from "@/data/portfolio";
+import { useDRS } from "./DRSContext";
 
 export function ProjectCard({ project }: { project: Project }) {
+  const { triggerDRS } = useDRS();
+
+  function handleActivate() {
+    triggerDRS(() => {
+      // Replace this console.log with router.push(`/projects/${project.slug}`)
+      // or open a modal when the rest of the routing is in place
+      console.log("DRS → project:", project.slug);
+    });
+  }
+
   return (
     <article className="glass-strong group relative flex flex-col overflow-hidden rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-[0_24px_80px_-20px_var(--accent-glow),0_0_0_1px_var(--accent)]">
       {/* BMW M stripe top border — visible on hover */}
@@ -79,6 +92,29 @@ export function ProjectCard({ project }: { project: Project }) {
             {tech}
           </span>
         ))}
+      </div>
+
+      {/* DRS trigger button */}
+      <div className="relative mt-5 border-t border-[var(--border)] pt-5">
+        <button
+          onClick={handleActivate}
+          className="group/btn flex items-center gap-2 font-mono text-[10px] font-medium tracking-[0.2em] text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+        >
+          <span
+            aria-hidden
+            className="h-[2px] w-5 m-stripe rounded-full opacity-60 transition-all duration-300 group-hover/btn:w-8 group-hover/btn:opacity-100"
+          />
+          VER DETALLES
+          <svg
+            viewBox="0 0 16 16"
+            className="h-3 w-3 transition-transform duration-300 group-hover/btn:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
     </article>
   );

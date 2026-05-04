@@ -1,4 +1,5 @@
-import { aboutMe, certifications } from "@/data/portfolio";
+import { aboutMe } from "@/data/portfolio";
+import { CertificationsCarousel } from "./CertificationsCarousel";
 
 const systemData = [
   { label: "NOMBRE", value: "Michael F. Quispe R." },
@@ -13,9 +14,16 @@ export function About() {
     <section id="about" className="w-full px-6 py-24 sm:px-10">
       <div className="mx-auto max-w-5xl">
 
-        <div className="mb-12 flex items-center gap-3 font-mono text-[11px] font-medium tracking-[0.25em] text-[var(--muted)]">
-          <span className="h-[2px] w-10 m-stripe rounded-full" />
-          FICHA TÉCNICA · PILOTO
+        <div className="mb-12 flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <span className="h-[2px] w-10 m-stripe rounded-full" />
+            <h2 className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl lg:text-4xl">
+              PILOTO
+            </h2>
+          </div>
+          <p className="text-xl font-light tracking-tight text-[var(--muted)] sm:text-2xl">
+            Ficha <span className="font-medium text-[var(--accent)]">Técnica</span>.
+          </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
@@ -123,7 +131,7 @@ export function About() {
           </aside>
         </div>
 
-        {/* Certifications grid */}
+        {/* Certifications carousel */}
         <div className="mt-12">
           <div className="mb-6 flex items-center gap-3">
             <span className="h-[2px] w-6 m-stripe rounded-full" />
@@ -131,30 +139,7 @@ export function About() {
               CERTIFICACIONES · SPEC SHEET
             </p>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {certifications.map((cert) => (
-              <div
-                key={cert.code}
-                className="glass group flex flex-col gap-3 rounded-xl p-5 transition-all hover:border-[var(--border-strong)] hover:shadow-[0_0_20px_-4px_var(--accent-glow)]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] tracking-[0.25em] text-[var(--accent)]">
-                    {cert.code}
-                  </span>
-                  <span className="font-mono text-[9px] tracking-widest text-[var(--muted)]">
-                    {cert.year}
-                  </span>
-                </div>
-                <p className="text-sm font-medium leading-snug text-foreground">
-                  {cert.title}
-                </p>
-                <p className="font-mono text-[10px] tracking-wide text-[var(--muted)]">
-                  {cert.issuer}
-                </p>
-              </div>
-            ))}
-          </div>
+          <CertificationsCarousel />
         </div>
 
       </div>

@@ -32,10 +32,10 @@ function F1Car() {
 
   return (
     <primitive
-    object={scene}
-    scale={0.8}
-    position={[1.5, -0.4, -0.7]}
-    rotation={[0.02, -0.4, 0.2]}
+      object={scene}
+      scale={0.9}
+      position={[0, -0.5, 0]}
+      rotation={[0.05, -0.25, 0.12]}
     />
   );
 }
@@ -57,6 +57,7 @@ export function F1Scene() {
         >
           <F1Car />
         </Float>
+
 
         {/* Low ambient — texturas originales quedan subordinadas */}
         <ambientLight intensity={1.5} />

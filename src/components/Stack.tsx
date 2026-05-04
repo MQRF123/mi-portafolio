@@ -1,7 +1,89 @@
-import type { CSSProperties } from "react";
-import { stack, type StackItem } from "@/data/portfolio";
+"use client";
+
+import { useState, useMemo } from "react";
+import { SkillsSphere } from "@/components/SkillsSphere";
+import {
+  SKILL_CATEGORIES,
+  SKILL_LEVELS,
+  SKILLS,
+  getFilteredSkills,
+  type SkillCategoryFilter,
+  type SkillLevelFilter,
+} from "@/data/skills";
+
+const CATEGORY_LABELS: Record<string, string> = {
+  frontend: "Frontend",
+  backend:  "Backend",
+  language: "Lenguaje",
+  mobile:   "Mobile",
+  database: "Base de datos",
+  devops:   "DevOps",
+  tool:     "Herramienta",
+};
+
+const LEVEL_LABELS: Record<string, string> = {
+  expert:   "Experto",
+  advanced: "Avanzado",
+};
+
+function FilterChip({
+  active,
+  color,
+  label,
+  onClick,
+}: {
+  active:  boolean;
+  color:   string;
+  label:   string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className="rounded-full border px-3.5 py-1.5 text-xs transition-all duration-200"
+      style={
+        active
+          ? {
+              color,
+              borderColor: `${color}66`,
+              background:  `linear-gradient(180deg, ${color}26 0%, rgba(10,10,15,0.72) 100%)`,
+              boxShadow:   `0 0 0 1px ${color}33 inset, 0 0 24px ${color}18`,
+            }
+          : {
+              borderColor: "var(--border)",
+              background:  "transparent",
+              color:       "var(--muted)",
+            }
+      }
+    >
+      <span className="inline-flex items-center gap-2">
+        <span
+          className="h-2 w-2 rounded-full"
+          style={{ backgroundColor: color }}
+        />
+        {label}
+      </span>
+    </button>
+  );
+}
 
 export function Stack() {
+  const [activeCategory, setActiveCategory] = useState<SkillCategoryFilter>("all");
+  const [activeLevel,    setActiveLevel]    = useState<SkillLevelFilter>("all");
+
+  const count = useMemo(
+    () => getFilteredSkills({ category: activeCategory, level: activeLevel }).length,
+    [activeCategory, activeLevel],
+  );
+
+  const toggleCategory = (key: SkillCategoryFilter) =>
+    setActiveCategory((prev) => (prev === key ? "all" : key));
+
+  const toggleLevel = (key: SkillLevelFilter) =>
+    setActiveLevel((prev) => (prev === key ? "all" : key));
+
   return (
     <section id="stack" className="relative w-full px-6 py-24 sm:px-10">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -9,116 +91,84 @@ export function Stack() {
       </div>
 
       <div className="mx-auto max-w-5xl">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3 font-mono text-[11px] font-medium tracking-[0.25em] text-[var(--muted)]">
-              <span className="h-[2px] w-10 m-stripe rounded-full" />
-              STACK · HERRAMIENTAS DEL GARAJE
-            </div>
-            <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-              Afinado por lenguaje,
-              <br className="hidden sm:block" /> optimizado por <span className="font-semibold text-[var(--accent)]">propósito</span>.
+        {/* header */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <span className="h-[2px] w-10 m-stripe rounded-full" />
+            <h2 className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl lg:text-4xl">
+              STACK
             </h2>
           </div>
-          <p className="max-w-sm text-sm font-light leading-relaxed text-[var(--muted)]">
-            Cada herramienta elegida según el terreno. No uso un martillo para
-            cada clavo — elijo el tuning correcto para la pista.
+          <p className="text-xl font-light tracking-tight text-[var(--muted)] sm:text-2xl">
+            Herramientas del <span className="font-medium text-[var(--accent)]">Garaje</span>.
+          </p>
+          <p className="max-w-2xl text-xs font-light leading-relaxed text-[var(--muted)]">
+            Afinado por lenguaje, optimizado por propósito. Cada herramienta elegida según el terreno.
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {stack.map((tech, index) => (
-            <StackCard key={tech.name} tech={tech} index={index} />
-          ))}
-        </ul>
+        {/* sphere */}
+        <div className="mt-10">
+          <SkillsSphere activeCategory={activeCategory} activeLevel={activeLevel} />
+        </div>
+
+        {/* filters */}
+        <div className="mt-6 flex flex-col items-center gap-6">
+
+          {/* level filter */}
+          <div className="flex flex-col items-center gap-3">
+            <span className="font-mono text-[10px] tracking-[0.24em] text-[var(--muted)]">
+              FILTRAR POR NIVEL
+            </span>
+            <div className="flex flex-wrap justify-center gap-2">
+              <FilterChip
+                active={activeLevel === "all"}
+                color="#e2e8f0"
+                label="Todos"
+                onClick={() => setActiveLevel("all")}
+              />
+              {SKILL_LEVELS.map((l) => (
+                <FilterChip
+                  key={l.key}
+                  active={activeLevel === l.key}
+                  color={l.color}
+                  label={LEVEL_LABELS[l.key]}
+                  onClick={() => toggleLevel(l.key)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* category filter */}
+          <div className="flex flex-col items-center gap-3">
+            <span className="font-mono text-[10px] tracking-[0.24em] text-[var(--muted)]">
+              FILTRAR POR CATEGORÍA
+            </span>
+            <div className="flex flex-wrap justify-center gap-2">
+              <FilterChip
+                active={activeCategory === "all"}
+                color="#e2e8f0"
+                label="Todas"
+                onClick={() => setActiveCategory("all")}
+              />
+              {SKILL_CATEGORIES.map((c) => (
+                <FilterChip
+                  key={c.key}
+                  active={activeCategory === c.key}
+                  color={c.color}
+                  label={CATEGORY_LABELS[c.key]}
+                  onClick={() => toggleCategory(c.key)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* count */}
+          <p className="font-mono text-[10px] tracking-widest text-[var(--muted)]">
+            {count} / {SKILLS.length} TECNOLOGÍAS
+          </p>
+        </div>
       </div>
     </section>
-  );
-}
-
-function StackCard({ tech, index }: { tech: StackItem; index: number }) {
-  const isFeatured = index === 0;
-  return (
-    <li
-      style={{ "--brand": tech.color } as CSSProperties}
-      className={`glass group relative flex flex-col overflow-hidden rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1 ${
-        isFeatured ? "col-span-2 row-span-1 sm:col-span-1 lg:col-span-2" : ""
-      }`}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(circle at 30% 0%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 60%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, var(--brand), transparent)",
-        }}
-      />
-
-      <div className="relative flex items-start justify-between">
-        <Monogram gradient={tech.gradient} text={tech.monogram} />
-        <span className="font-mono text-[10px] tracking-widest text-[var(--muted)]">
-          {tech.category.toUpperCase()}
-        </span>
-      </div>
-
-      <div className="relative mt-5">
-        <h3 className="text-lg font-semibold tracking-tight text-foreground transition-colors duration-300 group-hover:text-[var(--brand)]">
-          {tech.name}
-        </h3>
-        <p className="mt-1 text-xs leading-relaxed text-[var(--muted)]">
-          {tech.tagline}
-        </p>
-      </div>
-
-      <div className="relative mt-5 flex items-center justify-between border-t border-[var(--border)] pt-4">
-        <span className="font-mono text-[10px] tracking-widest text-[var(--muted)]">
-          LVL {tech.level}/3
-        </span>
-        <LevelBars level={tech.level} />
-      </div>
-    </li>
-  );
-}
-
-function Monogram({ gradient, text }: { gradient: string; text: string }) {
-  return (
-    <div
-      className={`relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} shadow-[0_8px_24px_-8px_var(--brand)]`}
-    >
-      <span className="font-mono text-base font-bold tracking-tight text-white mix-blend-plus-lighter">
-        {text}
-      </span>
-      <div
-        aria-hidden
-        className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20"
-      />
-    </div>
-  );
-}
-
-function LevelBars({ level }: { level: 1 | 2 | 3 }) {
-  return (
-    <div className="flex items-end gap-1">
-      {[1, 2, 3].map((i) => (
-        <span
-          key={i}
-          className="w-1 rounded-full transition-all duration-500"
-          style={{
-            height: `${i * 4 + 4}px`,
-            background:
-              i <= level ? "var(--brand)" : "var(--border-strong)",
-            opacity: i <= level ? 1 : 0.6,
-          }}
-        />
-      ))}
-    </div>
   );
 }

@@ -9,13 +9,15 @@ export function Projects() {
     >
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-3 font-mono text-[11px] font-medium tracking-[0.25em] text-[var(--muted)]">
-            <span className="h-[2px] w-10 m-stripe rounded-full" />
-            PROYECTOS SELECCIONADOS
+          <div className="flex items-center gap-3">
+            <span className="h-[1px] w-10 m-stripe rounded-full" />
+            <h2 className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl lg:text-4xl">
+              PROYECTOS
+            </h2>
           </div>
-          <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-            Construido para <span className="font-semibold text-[var(--accent)] text-glow">correr</span>.
-          </h2>
+          <p className="text-xl font-light tracking-tight text-[var(--muted)] sm:text-2xl">
+            <span className="font-medium text-[var(--accent)] text-glow">Seleccionados</span> para correr.
+          </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">

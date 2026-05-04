@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import { LenisProvider } from "@/providers/LenisProvider";
+import { F1LoaderOverlay } from "@/components/F1LoaderOverlay";
+import { DRSProvider } from "@/components/DRSContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -35,7 +37,10 @@ export default function RootLayout({
       className={`${inter.variable} ${robotoMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <LenisProvider>{children}</LenisProvider>
+        <F1LoaderOverlay />
+        <DRSProvider>
+          <LenisProvider>{children}</LenisProvider>
+        </DRSProvider>
       </body>
     </html>
   );
