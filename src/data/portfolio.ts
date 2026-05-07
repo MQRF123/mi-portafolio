@@ -137,6 +137,15 @@ export const stack: StackItem[] = [
   },
 ];
 
+export type ProjectDetail = {
+  problem: string;
+  role: string;
+  duration: string;
+  technicalDecisions: { title: string; body: string }[];
+  challenges: { title: string; body: string }[];
+  links?: { demo?: string; repo?: string };
+};
+
 export type Project = {
   slug: string;
   code: string;
@@ -145,6 +154,7 @@ export type Project = {
   description: string;
   highlights: string[];
   stack: string[];
+  detail: ProjectDetail;
 };
 
 export const projects: Project[] = [
@@ -161,6 +171,37 @@ export const projects: Project[] = [
       "Integración de autenticación y base de datos NoSQL con Firebase",
     ],
     stack: ["Next.js", "TypeScript", "Firebase", "Tailwind CSS"],
+    detail: {
+      problem:
+        "Las hojas de cálculo y simuladores genéricos no permiten modelar créditos hipotecarios reales con tasas variables, periodos de gracia y amortizaciones precisas. Se necesitaba una plataforma que entregue resultados verificables y reproducibles.",
+      role: "Full-stack Developer · Diseño técnico y construcción del motor de cálculo.",
+      duration: "Proyecto académico · 8 semanas",
+      technicalDecisions: [
+        {
+          title: "Motor de cálculo aislado",
+          body: "Toda la lógica financiera (TCEA, flujo de caja, amortización) vive en módulos puros sin dependencias de UI ni I/O. Esto permite testear los algoritmos en isolation y reusarlos en server o cliente.",
+        },
+        {
+          title: "Next.js con App Router",
+          body: "Server-side routing y server components para reducir JS en el cliente. Turbopack en dev para iteración rápida.",
+        },
+        {
+          title: "Firebase como backend",
+          body: "Auth + Firestore para persistencia. Eligió un BaaS para enfocar tiempo en el dominio financiero, no en infra.",
+        },
+      ],
+      challenges: [
+        {
+          title: "Precisión numérica",
+          body: "Los cálculos financieros no toleran errores de coma flotante. Se normalizaron las operaciones a fixed-point para evitar drift en cuotas largas.",
+        },
+        {
+          title: "Reactividad en cronogramas largos",
+          body: "Recalcular 360 cuotas en cada cambio de input pegaba el render. Se memoizó el motor y se difirieron updates no críticos.",
+        },
+      ],
+      links: {},
+    },
   },
   {
     slug: "oncontrol-telemedicine",
@@ -175,5 +216,36 @@ export const projects: Project[] = [
       "Interfaz fluida y nativa compilada para Android e iOS",
     ],
     stack: ["Flutter", "Dart", "BLoC/Provider", "Clean Architecture"],
+    detail: {
+      problem:
+        "El seguimiento médico fragmentado entre WhatsApp, llamadas y papel genera errores en tratamientos crónicos. Se requería un canal único entre paciente y doctor con trazabilidad completa.",
+      role: "Mobile Developer · Arquitectura de capas y módulos de presentación.",
+      duration: "Proyecto académico · 12 semanas",
+      technicalDecisions: [
+        {
+          title: "Clean Architecture estricta",
+          body: "Tres capas (Dominio, Datos, Presentación) con dependencia unidireccional. El dominio no conoce Flutter ni Firebase, lo que permite swap del backend sin tocar reglas de negocio.",
+        },
+        {
+          title: "BLoC para estado",
+          body: "Estados reactivos predecibles, fácilmente testeables. Cada feature tiene su propio BLoC desacoplado.",
+        },
+        {
+          title: "Inyección de dependencias",
+          body: "Service Locator central para construir grafos de dependencias. Facilita testing con mocks y mantiene los widgets agnósticos del data layer.",
+        },
+      ],
+      challenges: [
+        {
+          title: "Sync offline-first",
+          body: "Pacientes registran síntomas sin conexión. Se diseñó una cola local que reconcilia con el backend al recuperar red, evitando duplicados.",
+        },
+        {
+          title: "UX para dos roles distintos",
+          body: "Doctor y paciente comparten codebase pero ven flujos opuestos. Se modeló un router por rol que monta solo los módulos relevantes.",
+        },
+      ],
+      links: {},
+    },
   },
 ];

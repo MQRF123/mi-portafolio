@@ -174,9 +174,10 @@ export function DRSProvider({ children }: { children: ReactNode }) {
     timerRef.current.forEach(clearTimeout);
 
     setVisible(true);
-    // Fire callback mid-animation — content loads as car crosses screen
-    timerRef.current[0] = setTimeout(() => callback(), 350);
-    timerRef.current[1] = setTimeout(() => setVisible(false), 760);
+    // Fire callback IMMEDIATELY — the modal mounts hidden behind a left→right
+    // clip-path reveal that runs in sync with the F1 car. Modal becomes the wipe.
+    callback();
+    timerRef.current[0] = setTimeout(() => setVisible(false), 800);
   }, []);
 
   return (

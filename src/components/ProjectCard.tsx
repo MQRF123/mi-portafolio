@@ -3,14 +3,18 @@
 import type { Project } from "@/data/portfolio";
 import { useDRS } from "./DRSContext";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  onOpen,
+}: {
+  project: Project;
+  onOpen: (project: Project) => void;
+}) {
   const { triggerDRS } = useDRS();
 
   function handleActivate() {
     triggerDRS(() => {
-      // Replace this console.log with router.push(`/projects/${project.slug}`)
-      // or open a modal when the rest of the routing is in place
-      console.log("DRS → project:", project.slug);
+      onOpen(project);
     });
   }
 

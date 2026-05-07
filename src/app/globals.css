@@ -218,7 +218,52 @@ body::before {
   100% { transform: scaleX(1); opacity: 0; }
 }
 
+@keyframes drs-reveal {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes drs-reveal-edge {
+  0%   { left: -2%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
 ::selection {
   background: var(--accent);
   color: #fff;
+}
+
+/* ── Modal scrollbar — slim, branded ─────────────────────────────────── */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 12px 0;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff2d3a, #b81f29);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(255, 45, 58, 0.45);
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff4d57, #ff2d3a);
+  box-shadow: 0 0 14px rgba(255, 45, 58, 0.75);
+}
+
+/* ── Hide site Navbar while a modal is open ──────────────────────────── */
+body.modal-open header.fixed {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }

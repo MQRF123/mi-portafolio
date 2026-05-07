@@ -1,7 +1,13 @@
-import { projects } from "@/data/portfolio";
+"use client";
+
+import { useState } from "react";
+import { projects, type Project } from "@/data/portfolio";
 import { ProjectCard } from "./ProjectCard";
+import { ProjectDetailModal } from "./ProjectDetailModal";
 
 export function Projects() {
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
   return (
     <section
       id="projects"
@@ -22,10 +28,19 @@ export function Projects() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              onOpen={setActiveProject}
+            />
           ))}
         </div>
       </div>
+
+      <ProjectDetailModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </section>
   );
 }
