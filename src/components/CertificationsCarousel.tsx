@@ -17,6 +17,8 @@ export function CertificationsCarousel() {
       className="relative overflow-hidden"
       onMouseEnter={pause}
       onMouseLeave={resume}
+      onTouchStart={pause}
+      onTouchEnd={resume}
     >
       {/* Edge fade masks */}
       <div

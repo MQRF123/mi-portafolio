@@ -79,7 +79,7 @@ export function ProjectDetailModal({
 
       {/* Panel */}
       <div
-        className="relative my-10 flex max-h-[calc(100vh-5rem)] w-[min(100%,64rem)] flex-col overflow-hidden rounded-2xl border border-[var(--border-strong)] bg-[var(--background)] shadow-[0_30px_120px_-20px_rgba(255,45,58,0.35)]"
+        className="relative my-4 flex max-h-[calc(100vh-2rem)] w-[min(100%,64rem)] flex-col overflow-hidden rounded-2xl border border-[var(--border-strong)] bg-[var(--background)] shadow-[0_30px_120px_-20px_rgba(255,45,58,0.35)] sm:my-10 sm:max-h-[calc(100vh-5rem)]"
         style={{ animation: "fade-up 0.6s ease-out 0.1s both" }}
       >
         {/* BMW M stripe top border */}
@@ -103,7 +103,7 @@ export function ProjectDetailModal({
           type="button"
           onClick={onClose}
           aria-label="Cerrar"
-          className="absolute right-5 top-5 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--background)]/70 text-[var(--muted)] backdrop-blur transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] hover:shadow-[0_0_16px_var(--accent-glow)]"
+          className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--background)]/70 text-[var(--muted)] backdrop-blur transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] hover:shadow-[0_0_16px_var(--accent-glow)]"
         >
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M4 4l8 8M12 4l-8 8" strokeLinecap="round" />

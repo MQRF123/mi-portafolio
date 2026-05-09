@@ -69,12 +69,20 @@ function TelemetryReadout() {
     { label: "MODE", value: "PUSH" },
     { label: "TEMP", value: "98°C" },
   ];
+
+  const borderClass = (i: number) => {
+    if (i === 0) return "";
+    if (i === 1) return "border-l border-[var(--border)]";
+    if (i === 2) return "border-t border-[var(--border)] sm:border-t-0 sm:border-l";
+    return "border-l border-t border-[var(--border)] sm:border-t-0";
+  };
+
   return (
-    <dl className="mt-14 grid max-w-2xl grid-cols-4 gap-0 border-y border-[var(--border)]">
+    <dl className="mt-14 grid max-w-2xl grid-cols-2 gap-0 border-y border-[var(--border)] sm:grid-cols-4">
       {cells.map((c, i) => (
         <div
           key={c.label}
-          className={`flex flex-col gap-1 px-3 py-3 ${i !== 0 ? "border-l border-[var(--border)]" : ""}`}
+          className={`flex flex-col gap-1 px-3 py-3 ${borderClass(i)}`}
         >
           <dt className="font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">
             {c.label}
