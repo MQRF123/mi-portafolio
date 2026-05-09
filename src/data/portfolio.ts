@@ -200,7 +200,10 @@ export const projects: Project[] = [
           body: "Recalcular 360 cuotas en cada cambio de input pegaba el render. Se memoizó el motor y se difirieron updates no críticos.",
         },
       ],
-      links: {},
+      links: {
+        demo: "https://finance-app-gray-six.vercel.app/",
+        repo: "https://github.com/MQRF123/Finance-app",
+      },
     },
   },
   {
@@ -245,7 +248,10 @@ export const projects: Project[] = [
           body: "Doctor y paciente comparten codebase pero ven flujos opuestos. Se modeló un router por rol que monta solo los módulos relevantes.",
         },
       ],
-      links: {},
+      links: {
+        demo: "https://on-control.vercel.app/",
+        repo: "https://github.com/OnControl-IOT",
+      },
     },
   },
 ];
