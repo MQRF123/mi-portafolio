@@ -13,6 +13,7 @@ import {
   type SkillLevelFilter,
   type SkillNode,
 } from "@/data/skills";
+import { TechIcon, hasTechIcon } from "./TechIcon";
 
 function fibonacciSphere(n: number, radius: number): [number, number, number][] {
   if (n <= 0) return [];
@@ -69,15 +70,30 @@ function SkillLabel({
             transition:    "all 0.2s ease",
             cursor:        "pointer",
             display:       "inline-flex",
-            flexDirection: isHovered ? "column" : "row",
-            alignItems:    isHovered ? "flex-start" : "center",
-            gap:           isHovered ? "2px" : "4px",
+            flexDirection: "column",
+            alignItems:    "center",
+            gap:           "3px",
             fontFamily:    "var(--font-mono, monospace)",
           }}
         >
-          {skill.name}
+          {hasTechIcon(skill.name) ? (
+            <span style={{
+              display:      "inline-flex",
+              alignItems:   "center",
+              gap:          "5px",
+              filter:       isHovered ? `drop-shadow(0 0 6px ${color}99)` : "none",
+              transition:   "filter 0.2s ease",
+            }}>
+              <TechIcon name={skill.name} size={isHovered ? size * 1.6 : size * 1.2} colored />
+              {isHovered && (
+                <span style={{ fontSize: `${size * 1.1}px` }}>{skill.name}</span>
+              )}
+            </span>
+          ) : (
+            <span>{skill.name}</span>
+          )}
           {isHovered && (
-            <span style={{ display: "block", fontSize: "9px", color: "#8b8b95", marginTop: "2px", textShadow: "none" }}>
+            <span style={{ display: "block", fontSize: "9px", color: "#8b8b95", textShadow: "none" }}>
               {skill.level} · {skill.category}
             </span>
           )}
