@@ -63,14 +63,25 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          {/* Language switcher */}
-          <button
-            type="button"
-            onClick={switchLocale}
-            className="rounded-full border border-[var(--border)] px-3 py-1.5 font-mono text-[10px] font-medium tracking-[0.2em] text-[var(--muted)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)]"
-          >
-            {t("switchLang")}
-          </button>
+          {/* Language switcher toggle */}
+          <div className="flex items-center rounded-full border border-[var(--border-strong)] p-0.5 font-mono text-[10px] font-medium tracking-[0.2em]">
+            {(["es", "en"] as const).map((lng) => (
+              <button
+                key={lng}
+                type="button"
+                onClick={() => {
+                  if (lng !== locale) switchLocale();
+                }}
+                className={`rounded-full px-3 py-1 transition-all duration-200 ${
+                  locale === lng
+                    ? "bg-[var(--accent)] text-white shadow-[0_0_12px_var(--accent-glow)]"
+                    : "text-[var(--muted)] hover:text-foreground"
+                }`}
+              >
+                {lng.toUpperCase()}
+              </button>
+            ))}
+          </div>
 
           <a
             href="#contact"
