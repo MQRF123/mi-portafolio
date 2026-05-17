@@ -1,4 +1,8 @@
+import { useTranslations } from "next-intl";
+
 export function Hero() {
+  const t = useTranslations("hero");
+
   return (
     <section
       id="top"
@@ -13,25 +17,20 @@ export function Hero() {
       <div className="relative mx-auto w-full max-w-5xl animate-fade-up">
         <div className="mb-6 flex items-center gap-3 font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">
           <span className="inline-block h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse-line shadow-[0_0_12px_var(--accent-glow)]" />
-          <span>SOFTWARE DEVELOPER · LIMA, PE</span>
+          <span>{t("badge")}</span>
           <span className="ml-2 h-px w-12 m-stripe opacity-80" />
         </div>
 
         <h1 className="text-balance text-4xl font-light leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-          Construyo software rápido,
+          {t("headline")}
           <br className="hidden sm:block" />{" "}
-          <span className="font-semibold text-[var(--accent)] text-glow">preciso</span> y{" "}
-          <span className="font-extralight italic text-[var(--muted)]">con alma.</span>
+          <span className="font-semibold text-[var(--accent)] text-glow">{t("headlineAccent")}</span>{" "}
+          {t("headlineConnector")}{" "}
+          <span className="font-extralight italic text-[var(--muted)]">{t("headlineItalic")}</span>
         </h1>
 
         <p className="mt-8 max-w-2xl text-base font-normal leading-relaxed text-[var(--muted)] sm:text-lg">
-          Soy{" "}
-          <span className="font-normal text-foreground">Michael Quispe</span>, Software
-          Developer enfocado en{" "}
-          <span className="font-normal text-foreground">rendimiento</span> y arquitecturas
-          escalables. Entusiasta del Motorsport ({" "}
-          <span className="font-normal text-foreground">BMW M, F1, WEC</span> ) y del{" "}
-          <span className="font-normal text-foreground">Sim Racing</span> — donde la precisión, la telemetría y cada milisegundo cuentan, igual que en el código.
+          <HeroBio t={t} />
         </p>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -39,10 +38,8 @@ export function Hero() {
             href="#projects"
             className="group relative inline-flex h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--accent)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-white transition-all hover:shadow-[0_0_40px_var(--accent-glow)]"
           >
-            <span className="relative z-10">VER PROYECTOS</span>
-            <span className="relative z-10 transition-transform group-hover:translate-x-1">
-              →
-            </span>
+            <span className="relative z-10">{t("ctaProjects")}</span>
+            <span className="relative z-10 transition-transform group-hover:translate-x-1">→</span>
             <span
               aria-hidden
               className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:animate-sweep group-hover:opacity-100"
@@ -52,7 +49,7 @@ export function Hero() {
             href="#about"
             className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-strong)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-foreground transition-colors hover:border-foreground"
           >
-            SOBRE MÍ
+            {t("ctaAbout")}
           </a>
         </div>
 
@@ -62,12 +59,33 @@ export function Hero() {
   );
 }
 
+function HeroBio({ t }: { t: ReturnType<typeof useTranslations<"hero">> }) {
+  const raw = t("bio");
+  const parts = raw.split(/(<name>.*?<\/name>|<strong>.*?<\/strong>)/g);
+
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith("<name>")) {
+          const text = part.replace(/<\/?name>/g, "");
+          return <span key={i} className="font-normal text-foreground">{text}</span>;
+        }
+        if (part.startsWith("<strong>")) {
+          const text = part.replace(/<\/?strong>/g, "");
+          return <span key={i} className="font-normal text-foreground">{text}</span>;
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
 function TelemetryReadout() {
   const cells = [
-    { label: "LAP", value: "001" },
+    { label: "LAP",   value: "001"     },
     { label: "STINT", value: "Q3 2026" },
-    { label: "MODE", value: "PUSH" },
-    { label: "TEMP", value: "98°C" },
+    { label: "MODE",  value: "PUSH"    },
+    { label: "TEMP",  value: "98°C"    },
   ];
 
   const borderClass = (i: number) => {
@@ -80,19 +98,11 @@ function TelemetryReadout() {
   return (
     <dl className="mt-14 grid max-w-2xl grid-cols-2 gap-0 border-y border-[var(--border)] sm:grid-cols-4">
       {cells.map((c, i) => (
-        <div
-          key={c.label}
-          className={`flex flex-col gap-1 px-3 py-3 ${borderClass(i)}`}
-        >
-          <dt className="font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">
-            {c.label}
-          </dt>
-          <dd className="font-mono text-sm font-medium tracking-wider text-foreground">
-            {c.value}
-          </dd>
+        <div key={c.label} className={`flex flex-col gap-1 px-3 py-3 ${borderClass(i)}`}>
+          <dt className="font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">{c.label}</dt>
+          <dd className="font-mono text-sm font-medium tracking-wider text-foreground">{c.value}</dd>
         </div>
       ))}
     </dl>
   );
 }
-

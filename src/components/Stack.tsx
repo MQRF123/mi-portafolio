@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { SkillsSphere } from "@/components/SkillsSphere";
 import {
   SKILL_CATEGORIES,
@@ -10,21 +11,6 @@ import {
   type SkillCategoryFilter,
   type SkillLevelFilter,
 } from "@/data/skills";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  frontend: "Frontend",
-  backend:  "Backend",
-  language: "Lenguaje",
-  mobile:   "Mobile",
-  database: "Base de datos",
-  devops:   "DevOps",
-  tool:     "Herramienta",
-};
-
-const LEVEL_LABELS: Record<string, string> = {
-  expert:   "Experto",
-  advanced: "Avanzado",
-};
 
 function FilterChip({
   active,
@@ -59,10 +45,7 @@ function FilterChip({
       }
     >
       <span className="inline-flex items-center gap-2">
-        <span
-          className="h-2 w-2 rounded-full"
-          style={{ backgroundColor: color }}
-        />
+        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
         {label}
       </span>
     </button>
@@ -70,6 +53,7 @@ function FilterChip({
 }
 
 export function Stack() {
+  const t = useTranslations("stack");
   const [activeCategory, setActiveCategory] = useState<SkillCategoryFilter>("all");
   const [activeLevel,    setActiveLevel]    = useState<SkillLevelFilter>("all");
 
@@ -91,40 +75,37 @@ export function Stack() {
       </div>
 
       <div className="mx-auto max-w-5xl">
-        {/* header */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
             <span className="h-[2px] w-10 m-stripe rounded-full" />
             <h2 className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl lg:text-4xl">
-              STACK
+              {t("title")}
             </h2>
           </div>
           <p className="text-xl font-light tracking-tight text-[var(--muted)] sm:text-2xl">
-            Herramientas del <span className="font-medium text-[var(--accent)]">Garaje</span>.
+            {t("subtitlePre")}{" "}
+            <span className="font-medium text-[var(--accent)]">{t("subtitleAccent")}</span>.
           </p>
           <p className="max-w-2xl text-xs font-light leading-relaxed text-[var(--muted)]">
-            Afinado por lenguaje, optimizado por propósito. Cada herramienta elegida según el terreno.
+            {t("description")}
           </p>
         </div>
 
-        {/* sphere */}
         <div className="mt-10">
           <SkillsSphere activeCategory={activeCategory} activeLevel={activeLevel} />
         </div>
 
-        {/* filters */}
         <div className="mt-6 flex flex-col items-center gap-6">
 
-          {/* level filter */}
           <div className="flex flex-col items-center gap-3">
             <span className="font-mono text-[10px] tracking-[0.24em] text-[var(--muted)]">
-              FILTRAR POR NIVEL
+              {t("filterLevel")}
             </span>
             <div className="flex flex-wrap justify-center gap-2">
               <FilterChip
                 active={activeLevel === "all"}
                 color="#e2e8f0"
-                label="Todos"
+                label={t("all")}
                 onClick={() => setActiveLevel("all")}
               />
               {SKILL_LEVELS.map((l) => (
@@ -132,23 +113,22 @@ export function Stack() {
                   key={l.key}
                   active={activeLevel === l.key}
                   color={l.color}
-                  label={LEVEL_LABELS[l.key]}
+                  label={t(`levels.${l.key}`)}
                   onClick={() => toggleLevel(l.key)}
                 />
               ))}
             </div>
           </div>
 
-          {/* category filter */}
           <div className="flex flex-col items-center gap-3">
             <span className="font-mono text-[10px] tracking-[0.24em] text-[var(--muted)]">
-              FILTRAR POR CATEGORÍA
+              {t("filterCategory")}
             </span>
             <div className="flex flex-wrap justify-center gap-2">
               <FilterChip
                 active={activeCategory === "all"}
                 color="#e2e8f0"
-                label="Todas"
+                label={t("allCategories")}
                 onClick={() => setActiveCategory("all")}
               />
               {SKILL_CATEGORIES.map((c) => (
@@ -156,16 +136,15 @@ export function Stack() {
                   key={c.key}
                   active={activeCategory === c.key}
                   color={c.color}
-                  label={CATEGORY_LABELS[c.key]}
+                  label={t(`categories.${c.key}`)}
                   onClick={() => toggleCategory(c.key)}
                 />
               ))}
             </div>
           </div>
 
-          {/* count */}
           <p className="font-mono text-[10px] tracking-widest text-[var(--muted)]">
-            {count} / {SKILLS.length} TECNOLOGÍAS
+            {t("count", { count, total: SKILLS.length })}
           </p>
         </div>
       </div>

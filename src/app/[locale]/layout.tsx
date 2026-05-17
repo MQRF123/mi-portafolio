@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 import { LenisProvider } from "@/providers/LenisProvider";
 import { F1LoaderOverlay } from "@/components/F1LoaderOverlay";
 import { DRSProvider } from "@/components/DRSContext";
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({
   variable: "--font-sans-inter",
@@ -22,25 +26,37 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Michael Quispe — Software Developer",
   description:
-    "Portafolio de Michael Quispe. Software Developer enfocado en rendimiento, arquitectura escalable y entusiasta del mundo JDM y Sim Racing.",
+    "Portfolio of Michael Quispe. Software Developer focused on performance, scalable architecture, and Motorsport enthusiast.",
   metadataBase: new URL("https://example.com"),
 };
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  if (!routing.locales.includes(locale as "es" | "en")) {
+    notFound();
+  }
+
+  const messages = await getMessages();
+
   return (
     <html
-      lang="es"
+      lang={locale}
       className={`${inter.variable} ${robotoMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <F1LoaderOverlay />
-        <DRSProvider>
-          <LenisProvider>{children}</LenisProvider>
-        </DRSProvider>
+        <NextIntlClientProvider messages={messages}>
+          <F1LoaderOverlay />
+          <DRSProvider>
+            <LenisProvider>{children}</LenisProvider>
+          </DRSProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "stack": "Stack",
+    "projects": "Proyectos",
+    "about": "Sobre mí",
+    "contact": "CONTACTO",
+    "ariaOpen": "Abrir menú",
+    "ariaClose": "Cerrar menú",
+    "switchLang": "EN"
+  },
+  "hero": {
+    "badge": "SOFTWARE DEVELOPER · LIMA, PE",
+    "headline": "Construyo software rápido,",
+    "headlineAccent": "preciso",
+    "headlineConnector": "y",
+    "headlineItalic": "con alma.",
+    "bio": "Soy <name>Michael Quispe</name>, Software Developer enfocado en <strong>rendimiento</strong> y arquitecturas escalables. Entusiasta del Motorsport (<strong>BMW M, F1, WEC</strong>) y del <strong>Sim Racing</strong> — donde la precisión, la telemetría y cada milisegundo cuentan, igual que en el código.",
+    "ctaProjects": "VER PROYECTOS",
+    "ctaAbout": "SOBRE MÍ"
+  },
+  "about": {
+    "title": "PILOTO",
+    "subtitlePre": "Ficha",
+    "subtitleAccent": "Técnica",
+    "academic": "PERFIL ACADÉMICO",
+    "inProgress": "EN CURSO",
+    "languagesSection": "IDIOMAS",
+    "systemDataSection": "DATOS DE SISTEMA",
+    "certsSection": "CERTIFICACIONES · SPEC SHEET",
+    "downloadBtn": "↓ DOWNLOAD TELEMETRY",
+    "downloadSub": "· CV PDF",
+    "systemRows": {
+      "nameLabel": "NOMBRE",
+      "nameValue": "Michael F. Quispe R.",
+      "roleLabel": "ROL",
+      "roleValue": "Software Developer",
+      "baseLabel": "BASE",
+      "baseValue": "Lima, PE",
+      "cycleLabel": "CICLO",
+      "cycleValue": "08 / 10",
+      "statusLabel": "STATUS",
+      "statusValue": "ACTIVO"
+    }
+  },
+  "stack": {
+    "title": "STACK",
+    "subtitlePre": "Herramientas del",
+    "subtitleAccent": "Garaje",
+    "description": "Afinado por lenguaje, optimizado por propósito. Cada herramienta elegida según el terreno.",
+    "filterLevel": "FILTRAR POR NIVEL",
+    "filterCategory": "FILTRAR POR CATEGORÍA",
+    "all": "Todos",
+    "allCategories": "Todas",
+    "count": "{count} / {total} TECNOLOGÍAS",
+    "noResults": "SIN RESULTADOS",
+    "levels": {
+      "expert": "Experto",
+      "advanced": "Avanzado"
+    },
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "language": "Lenguaje",
+      "mobile": "Mobile",
+      "database": "Base de datos",
+      "devops": "DevOps",
+      "tool": "Herramienta"
+    }
+  },
+  "projects": {
+    "title": "PROYECTOS",
+    "subtitleAccent": "Seleccionados",
+    "subtitlePost": "para correr.",
+    "prefix": "PROJECT",
+    "viewDetails": "VER DETALLES",
+    "viewProject": "VER PROYECTO",
+    "webpage": "PÁGINA WEB",
+    "github": "GITHUB"
+  },
+  "modal": {
+    "close": "Cerrar",
+    "roleLabel": "ROL",
+    "durationLabel": "DURACIÓN",
+    "stackLabel": "STACK",
+    "problemTitle": "PROBLEMA",
+    "highlightsTitle": "HIGHLIGHTS",
+    "decisionsTitle": "DECISIONES TÉCNICAS",
+    "challengesTitle": "CHALLENGES",
+    "linksTitle": "LINKS",
+    "liveDemo": "LIVE DEMO →",
+    "github": "GITHUB ↗"
+  },
+  "footer": {
+    "rights": "© {year} MICHAEL QUISPE · ALL RIGHTS RESERVED"
+  },
+  "projectsData": {
+    "finance-app": {
+      "title": "Simulador Financiero",
+      "tagline": "Motor de cálculo · Generación de cronogramas",
+      "description": "Plataforma web para simulación de créditos y financiamiento inmobiliario. Implementa un motor propio para el cálculo de flujos de caja, tasas (TCEA) y amortizaciones en tiempo real, con persistencia en la nube.",
+      "highlights": [
+        "Lógica matemática compleja aislada en módulos de cálculo independientes",
+        "Arquitectura server-side routing con Next.js y Turbopack",
+        "Integración de autenticación y base de datos NoSQL con Firebase"
+      ],
+      "problem": "Las hojas de cálculo y simuladores genéricos no permiten modelar créditos hipotecarios reales con tasas variables, periodos de gracia y amortizaciones precisas. Se necesitaba una plataforma que entregue resultados verificables y reproducibles.",
+      "role": "Full-stack Developer · Diseño técnico y construcción del motor de cálculo.",
+      "duration": "Proyecto académico · 8 semanas",
+      "decisions": [
+        {
+          "title": "Motor de cálculo aislado",
+          "body": "Toda la lógica financiera (TCEA, flujo de caja, amortización) vive en módulos puros sin dependencias de UI ni I/O. Esto permite testear los algoritmos en isolation y reusarlos en server o cliente."
+        },
+        {
+          "title": "Next.js con App Router",
+          "body": "Server-side routing y server components para reducir JS en el cliente. Turbopack en dev para iteración rápida."
+        },
+        {
+          "title": "Firebase como backend",
+          "body": "Auth + Firestore para persistencia. Eligió un BaaS para enfocar tiempo en el dominio financiero, no en infra."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Precisión numérica",
+          "body": "Los cálculos financieros no toleran errores de coma flotante. Se normalizaron las operaciones a fixed-point para evitar drift en cuotas largas."
+        },
+        {
+          "title": "Reactividad en cronogramas largos",
+          "body": "Recalcular 360 cuotas en cada cambio de input pegaba el render. Se memoizó el motor y se difirieron updates no críticos."
+        }
+      ]
+    },
+    "oncontrol-telemedicine": {
+      "title": "OnControl — Telemedicina",
+      "tagline": "Clean Architecture · Monitoreo clínico",
+      "description": "Aplicación móvil para el seguimiento médico, agendamiento de citas y control de tratamientos. Conecta a doctores y pacientes mediante un sistema estructurado de registro de síntomas y procedimientos.",
+      "highlights": [
+        "Implementación estricta de Clean Architecture (Dominio, Datos, Presentación)",
+        "Gestión de estados reactivos e inyección de dependencias",
+        "Interfaz fluida y nativa compilada para Android e iOS"
+      ],
+      "problem": "El seguimiento médico fragmentado entre WhatsApp, llamadas y papel genera errores en tratamientos crónicos. Se requería un canal único entre paciente y doctor con trazabilidad completa.",
+      "role": "Mobile Developer · Arquitectura de capas y módulos de presentación.",
+      "duration": "Proyecto académico · 12 semanas",
+      "decisions": [
+        {
+          "title": "Clean Architecture estricta",
+          "body": "Tres capas (Dominio, Datos, Presentación) con dependencia unidireccional. El dominio no conoce Flutter ni Firebase, lo que permite swap del backend sin tocar reglas de negocio."
+        },
+        {
+          "title": "BLoC para estado",
+          "body": "Estados reactivos predecibles, fácilmente testeables. Cada feature tiene su propio BLoC desacoplado."
+        },
+        {
+          "title": "Inyección de dependencias",
+          "body": "Service Locator central para construir grafos de dependencias. Facilita testing con mocks y mantiene los widgets agnósticos del data layer."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Sync offline-first",
+          "body": "Pacientes registran síntomas sin conexión. Se diseñó una cola local que reconcilia con el backend al recuperar red, evitando duplicados."
+        },
+        {
+          "title": "UX para dos roles distintos",
+          "body": "Doctor y paciente comparten codebase pero ven flujos opuestos. Se modeló un router por rol que monta solo los módulos relevantes."
+        }
+      ]
+    }
+  }
+}

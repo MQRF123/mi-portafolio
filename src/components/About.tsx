@@ -1,15 +1,18 @@
+import { useTranslations } from "next-intl";
 import { aboutMe } from "@/data/portfolio";
 import { CertificationsCarousel } from "./CertificationsCarousel";
 
-const systemData = [
-  { label: "NOMBRE", value: "Michael F. Quispe R." },
-  { label: "ROL", value: "Software Developer" },
-  { label: "BASE", value: "Lima, PE" },
-  { label: "CICLO", value: "08 / 10" },
-  { label: "STATUS", value: "ACTIVO" },
-];
-
 export function About() {
+  const t = useTranslations("about");
+
+  const systemRows = [
+    { label: t("systemRows.nameLabel"),   value: t("systemRows.nameValue")   },
+    { label: t("systemRows.roleLabel"),   value: t("systemRows.roleValue")   },
+    { label: t("systemRows.baseLabel"),   value: t("systemRows.baseValue")   },
+    { label: t("systemRows.cycleLabel"),  value: t("systemRows.cycleValue")  },
+    { label: t("systemRows.statusLabel"), value: t("systemRows.statusValue") },
+  ];
+
   return (
     <section id="about" className="w-full px-6 py-24 sm:px-10">
       <div className="mx-auto max-w-5xl">
@@ -18,11 +21,12 @@ export function About() {
           <div className="flex items-center gap-3">
             <span className="h-[2px] w-10 m-stripe rounded-full" />
             <h2 className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl lg:text-4xl">
-              PILOTO
+              {t("title")}
             </h2>
           </div>
           <p className="text-xl font-light tracking-tight text-[var(--muted)] sm:text-2xl">
-            Ficha <span className="font-medium text-[var(--accent)]">Técnica</span>.
+            {t("subtitlePre")}{" "}
+            <span className="font-medium text-[var(--accent)]">{t("subtitleAccent")}</span>.
           </p>
         </div>
 
@@ -34,7 +38,7 @@ export function About() {
             {/* Academic timeline */}
             <div className="glass rounded-2xl p-7">
               <p className="mb-6 font-mono text-[9px] font-medium tracking-[0.3em] text-[var(--muted)]">
-                PERFIL ACADÉMICO
+                {t("academic")}
               </p>
               <div className="relative border-l border-[var(--border)] pl-6">
                 <div className="relative">
@@ -52,7 +56,7 @@ export function About() {
                     {aboutMe.education.institution}
                   </p>
                   <span className="mt-3 inline-block rounded border border-[var(--accent)] px-2 py-0.5 font-mono text-[9px] tracking-[0.25em] text-[var(--accent)]">
-                    {aboutMe.education.cycle.toUpperCase()} · EN CURSO
+                    {aboutMe.education.cycle.toUpperCase()} · {t("inProgress")}
                   </span>
                 </div>
               </div>
@@ -61,7 +65,7 @@ export function About() {
             {/* Languages */}
             <div className="glass rounded-2xl p-7">
               <p className="mb-5 font-mono text-[9px] font-medium tracking-[0.3em] text-[var(--muted)]">
-                IDIOMAS
+                {t("languagesSection")}
               </p>
               <ul className="flex flex-col gap-4">
                 {aboutMe.languages.map((l) => (
@@ -91,10 +95,10 @@ export function About() {
           >
             <div>
               <p className="mb-5 font-mono text-[9px] font-medium tracking-[0.3em] text-[var(--muted)]">
-                DATOS DE SISTEMA
+                {t("systemDataSection")}
               </p>
               <ul className="flex flex-col gap-4">
-                {systemData.map((stat) => (
+                {systemRows.map((stat) => (
                   <li
                     key={stat.label}
                     className="flex items-baseline justify-between border-b border-[var(--border)] pb-4 last:border-0 last:pb-0"
@@ -104,7 +108,7 @@ export function About() {
                     </span>
                     <span
                       className={`font-mono text-sm font-medium ${
-                        stat.label === "STATUS"
+                        stat.label === t("systemRows.statusLabel")
                           ? "text-glow text-[var(--accent)]"
                           : "text-foreground"
                       }`}
@@ -121,8 +125,8 @@ export function About() {
               download
               className="group relative mt-8 inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full bg-[var(--accent)] px-6 font-mono text-[11px] font-medium tracking-[0.2em] text-white transition-all hover:shadow-[0_0_40px_var(--accent-glow)]"
             >
-              <span className="relative z-10">↓ DOWNLOAD TELEMETRY</span>
-              <span className="relative z-10 font-light opacity-60">· CV PDF</span>
+              <span className="relative z-10">{t("downloadBtn")}</span>
+              <span className="relative z-10 font-light opacity-60">{t("downloadSub")}</span>
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:animate-sweep group-hover:opacity-100"
@@ -136,7 +140,7 @@ export function About() {
           <div className="mb-6 flex items-center gap-3">
             <span className="h-[2px] w-6 m-stripe rounded-full" />
             <p className="font-mono text-[9px] font-medium tracking-[0.3em] text-[var(--muted)]">
-              CERTIFICACIONES · SPEC SHEET
+              {t("certsSection")}
             </p>
           </div>
           <CertificationsCarousel />

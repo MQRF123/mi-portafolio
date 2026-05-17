@@ -42,11 +42,9 @@ function PitStopShowcase() {
           ].join(", "),
         }}
       />
-
       <div className="absolute inset-0 z-10">
         <PitStopCanvasDynamic />
       </div>
-
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-20 h-24"
@@ -57,7 +55,6 @@ function PitStopShowcase() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24"
         style={{ background: "linear-gradient(to top, var(--background), transparent)" }}
       />
-
       <p className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 font-mono text-[10px] tracking-[0.25em] text-[var(--muted)]">
         DRAG TO ROTATE · SCROLL TO ZOOM
       </p>

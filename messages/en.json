@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "stack": "Stack",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "CONTACT",
+    "ariaOpen": "Open menu",
+    "ariaClose": "Close menu",
+    "switchLang": "ES"
+  },
+  "hero": {
+    "badge": "SOFTWARE DEVELOPER · LIMA, PE",
+    "headline": "I build fast,",
+    "headlineAccent": "precise",
+    "headlineConnector": "and",
+    "headlineItalic": "soulful software.",
+    "bio": "I'm <name>Michael Quispe</name>, Software Developer focused on <strong>performance</strong> and scalable architectures. Motorsport enthusiast (<strong>BMW M, F1, WEC</strong>) and <strong>Sim Racing</strong> fan — where precision, telemetry, and every millisecond matter, just like in code.",
+    "ctaProjects": "VIEW PROJECTS",
+    "ctaAbout": "ABOUT ME"
+  },
+  "about": {
+    "title": "PILOT",
+    "subtitlePre": "Technical",
+    "subtitleAccent": "Profile",
+    "academic": "ACADEMIC PROFILE",
+    "inProgress": "IN PROGRESS",
+    "languagesSection": "LANGUAGES",
+    "systemDataSection": "SYSTEM DATA",
+    "certsSection": "CERTIFICATIONS · SPEC SHEET",
+    "downloadBtn": "↓ DOWNLOAD TELEMETRY",
+    "downloadSub": "· CV PDF",
+    "systemRows": {
+      "nameLabel": "NAME",
+      "nameValue": "Michael F. Quispe R.",
+      "roleLabel": "ROLE",
+      "roleValue": "Software Developer",
+      "baseLabel": "BASE",
+      "baseValue": "Lima, PE",
+      "cycleLabel": "CYCLE",
+      "cycleValue": "08 / 10",
+      "statusLabel": "STATUS",
+      "statusValue": "ACTIVE"
+    }
+  },
+  "stack": {
+    "title": "STACK",
+    "subtitlePre": "Tools of the",
+    "subtitleAccent": "Garage",
+    "description": "Tuned by language, optimized for purpose. Each tool chosen for the terrain.",
+    "filterLevel": "FILTER BY LEVEL",
+    "filterCategory": "FILTER BY CATEGORY",
+    "all": "All",
+    "allCategories": "All",
+    "count": "{count} / {total} TECHNOLOGIES",
+    "noResults": "NO RESULTS",
+    "levels": {
+      "expert": "Expert",
+      "advanced": "Advanced"
+    },
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "language": "Language",
+      "mobile": "Mobile",
+      "database": "Database",
+      "devops": "DevOps",
+      "tool": "Tool"
+    }
+  },
+  "projects": {
+    "title": "PROJECTS",
+    "subtitleAccent": "Selected",
+    "subtitlePost": "to race.",
+    "prefix": "PROJECT",
+    "viewDetails": "VIEW DETAILS",
+    "viewProject": "VIEW PROJECT",
+    "webpage": "WEBSITE",
+    "github": "GITHUB"
+  },
+  "modal": {
+    "close": "Close",
+    "roleLabel": "ROLE",
+    "durationLabel": "DURATION",
+    "stackLabel": "STACK",
+    "problemTitle": "PROBLEM",
+    "highlightsTitle": "HIGHLIGHTS",
+    "decisionsTitle": "TECHNICAL DECISIONS",
+    "challengesTitle": "CHALLENGES",
+    "linksTitle": "LINKS",
+    "liveDemo": "LIVE DEMO →",
+    "github": "GITHUB ↗"
+  },
+  "footer": {
+    "rights": "© {year} MICHAEL QUISPE · ALL RIGHTS RESERVED"
+  },
+  "projectsData": {
+    "finance-app": {
+      "title": "Financial Simulator",
+      "tagline": "Calculation Engine · Schedule Generation",
+      "description": "Web platform for credit and real estate financing simulation. Implements a custom engine for real-time cash flow, rate (TCEA), and amortization calculations, with cloud persistence.",
+      "highlights": [
+        "Complex financial logic isolated in independent calculation modules",
+        "Server-side routing architecture with Next.js and Turbopack",
+        "Authentication and NoSQL database integration via Firebase"
+      ],
+      "problem": "Generic spreadsheets and simulators cannot model real mortgage loans with variable rates, grace periods, and precise amortizations. A platform delivering verifiable and reproducible results was needed.",
+      "role": "Full-stack Developer · Technical design and calculation engine construction.",
+      "duration": "Academic project · 8 weeks",
+      "decisions": [
+        {
+          "title": "Isolated calculation engine",
+          "body": "All financial logic (TCEA, cash flow, amortization) lives in pure modules with no UI or I/O dependencies. This enables isolated algorithm testing and reuse across server and client."
+        },
+        {
+          "title": "Next.js with App Router",
+          "body": "Server-side routing and server components to reduce client-side JS. Turbopack in dev for fast iteration."
+        },
+        {
+          "title": "Firebase as backend",
+          "body": "Auth + Firestore for persistence. Chose a BaaS to focus time on the financial domain rather than infrastructure."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Numerical precision",
+          "body": "Financial calculations don't tolerate floating-point errors. Operations were normalized to fixed-point arithmetic to avoid drift across long amortization schedules."
+        },
+        {
+          "title": "Reactivity on long schedules",
+          "body": "Recalculating 360 installments on every input change stalled the render. The engine was memoized and non-critical updates deferred."
+        }
+      ]
+    },
+    "oncontrol-telemedicine": {
+      "title": "OnControl — Telemedicine",
+      "tagline": "Clean Architecture · Clinical Monitoring",
+      "description": "Mobile app for medical follow-up, appointment scheduling, and treatment control. Connects doctors and patients through a structured system for symptom and procedure tracking.",
+      "highlights": [
+        "Strict Clean Architecture implementation (Domain, Data, Presentation)",
+        "Reactive state management and dependency injection",
+        "Smooth native UI compiled for Android and iOS"
+      ],
+      "problem": "Medical follow-up fragmented across WhatsApp, calls, and paper causes errors in chronic treatments. A single channel between patient and doctor with full traceability was required.",
+      "role": "Mobile Developer · Layer architecture and presentation modules.",
+      "duration": "Academic project · 12 weeks",
+      "decisions": [
+        {
+          "title": "Strict Clean Architecture",
+          "body": "Three layers (Domain, Data, Presentation) with unidirectional dependency. The domain knows nothing about Flutter or Firebase, allowing backend swaps without touching business rules."
+        },
+        {
+          "title": "BLoC for state",
+          "body": "Predictable, testable reactive states. Each feature has its own decoupled BLoC."
+        },
+        {
+          "title": "Dependency injection",
+          "body": "Central Service Locator to build dependency graphs. Enables mock-based testing and keeps widgets agnostic of the data layer."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Offline-first sync",
+          "body": "Patients register symptoms without connectivity. A local queue was designed to reconcile with the backend on reconnect, preventing duplicates."
+        },
+        {
+          "title": "UX for two distinct roles",
+          "body": "Doctor and patient share the codebase but see opposite flows. A role-based router was built to mount only the relevant modules per session."
+        }
+      ]
+    }
+  }
+}
