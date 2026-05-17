@@ -122,7 +122,8 @@ export function About() {
 
             <a
               href="/cv.pdf"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="group relative mt-8 inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full bg-[var(--accent)] px-6 font-mono text-[11px] font-medium tracking-[0.2em] text-white transition-all hover:shadow-[0_0_40px_var(--accent-glow)]"
             >
               <span className="relative z-10">{t("downloadBtn")}</span>
