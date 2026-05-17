@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState, Suspense } from "react";
+import { useTranslations } from "next-intl";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -157,6 +158,7 @@ export function SkillsSphere({
   activeCategory = "all",
   activeLevel    = "all",
 }: SkillsSphereProps) {
+  const t = useTranslations("stack");
   const skills = useMemo(
     () => getFilteredSkills({ category: activeCategory, level: activeLevel }),
     [activeCategory, activeLevel],
@@ -186,7 +188,7 @@ export function SkillsSphere({
       {skills.length === 0 && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 font-mono text-xs tracking-widest text-[var(--muted)]">
-            SIN RESULTADOS
+            {t("noResults")}
           </span>
         </div>
       )}

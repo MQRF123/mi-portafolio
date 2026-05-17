@@ -2,13 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/navigation";
 
 export function Navbar() {
   const t = useTranslations("nav");
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -27,9 +24,9 @@ export function Navbar() {
 
   const close = () => setOpen(false);
 
-  function switchLocale() {
-    const next = locale === "es" ? "en" : "es";
-    router.replace(pathname, { locale: next });
+  function switchLocale(lng: "es" | "en") {
+    if (lng === locale) return;
+    window.location.href = `/${lng}`;
   }
 
   return (
@@ -68,9 +65,7 @@ export function Navbar() {
               <button
                 key={lng}
                 type="button"
-                onClick={() => {
-                  if (lng !== locale) switchLocale();
-                }}
+                onClick={() => switchLocale(lng)}
                 className={`rounded-full px-3 py-1 transition-all duration-200 ${
                   locale === lng
                     ? "bg-[var(--accent)] text-white shadow-[0_0_12px_var(--accent-glow)]"
