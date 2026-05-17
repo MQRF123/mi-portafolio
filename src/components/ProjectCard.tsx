@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import type { Project } from "@/data/portfolio";
 import { useDRS } from "./DRSContext";
-import { TechIcon, hasTechIcon } from "./TechIcon";
 
 export function ProjectCard({
   project,
@@ -55,9 +54,34 @@ export function ProjectCard({
         }}
       />
 
-      <div className="relative flex items-center">
+      {/* Outer glow ring */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          boxShadow:
+            "0 0 24px rgba(255,45,58,0.35), inset 0 0 24px rgba(255,45,58,0.08)",
+        }}
+      />
+
+      <div className="relative flex items-center justify-between">
         <span className="font-mono text-[10px] font-medium tracking-[0.25em] text-[var(--muted)]">
           PROJECT / {project.code}
+        </span>
+        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-strong)] text-[var(--muted)] transition-all group-hover:border-[var(--accent)] group-hover:text-[var(--accent)] group-hover:shadow-[0_0_16px_var(--accent-glow)]">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              d="M7 17L17 7M9 7h8v8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </span>
       </div>
 
@@ -82,28 +106,14 @@ export function ProjectCard({
       </ul>
 
       <div className="relative mt-7 flex flex-wrap gap-2 border-t border-[var(--border)] pt-5">
-        {project.stack.map((tech) =>
-          hasTechIcon(tech) ? (
-            <span
-              key={tech}
-              title={tech}
-              className="group/tag relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition-all duration-200 hover:border-[var(--border-strong)] hover:text-foreground group-hover:border-[var(--border-strong)]"
-            >
-              <TechIcon name={tech} size={13} />
-              {/* tooltip */}
-              <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-[var(--surface-raised)] px-2 py-1 font-mono text-[9px] tracking-[0.15em] text-foreground opacity-0 transition-opacity duration-150 group-hover/tag:opacity-100">
-                {tech}
-              </span>
-            </span>
-          ) : (
-            <span
-              key={tech}
-              className="rounded-full border border-[var(--border)] px-3 py-1 font-mono text-[10px] font-medium tracking-[0.15em] text-[var(--muted)] transition-colors group-hover:border-[var(--border-strong)]"
-            >
-              {tech}
-            </span>
-          )
-        )}
+        {project.stack.map((tech) => (
+          <span
+            key={tech}
+            className="rounded-full border border-[var(--border)] px-3 py-1 font-mono text-[10px] font-medium tracking-[0.15em] text-[var(--muted)] transition-colors group-hover:border-[var(--border-strong)]"
+          >
+            {tech}
+          </span>
+        ))}
       </div>
 
       {/* DRS trigger + links popover */}

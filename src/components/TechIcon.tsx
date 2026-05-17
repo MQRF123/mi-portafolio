@@ -16,9 +16,16 @@ import {
   siDocker,
   siGit,
   siFigma,
+  siAngular,
+  siVuedotjs,
 } from "simple-icons";
 
 type SimpleIcon = { path: string; hex: string; title: string };
+
+// Icons whose official hex is too dark for dark-mode backgrounds
+const colorOverrides: Record<string, string> = {
+  Angular: "E23237",
+};
 
 const iconMap: Record<string, SimpleIcon> = {
   TypeScript:     siTypescript,
@@ -38,6 +45,8 @@ const iconMap: Record<string, SimpleIcon> = {
   Docker:         siDocker,
   Git:            siGit,
   Figma:          siFigma,
+  Angular:        siAngular,
+  "Vue.js":       siVuedotjs,
 };
 
 export function TechIcon({
@@ -59,7 +68,7 @@ export function TechIcon({
       width={size}
       height={size}
       aria-label={name}
-      fill={colored ? `#${icon.hex}` : "currentColor"}
+      fill={colored ? `#${colorOverrides[name] ?? icon.hex}` : "currentColor"}
     >
       <path d={icon.path} />
     </svg>

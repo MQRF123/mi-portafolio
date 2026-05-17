@@ -29,8 +29,8 @@ export const CATEGORY_COLORS = Object.fromEntries(
 ) as Record<SkillCategory, string>;
 
 export const LEVEL_SIZES: Record<SkillLevel, number> = {
-  expert:   16,
-  advanced: 13,
+  expert:   20,
+  advanced: 16,
 };
 
 export function getFilteredSkills(
@@ -60,6 +60,8 @@ export const SKILLS: SkillNode[] = [
   { name: "MongoDB",      level: "advanced", category: "database"  },
   { name: "PostgreSQL",   level: "advanced", category: "database"  },
   { name: "Docker",       level: "advanced", category: "devops"    },
+  { name: "Angular",      level: "advanced", category: "frontend"  },
+  { name: "Vue.js",       level: "advanced", category: "frontend"  },
   { name: "Git",          level: "advanced", category: "tool"      },
   { name: "Figma",        level: "advanced", category: "tool"      },
 ];
