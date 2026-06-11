@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 export function Hero() {
@@ -15,45 +16,56 @@ export function Hero() {
       </div>
 
       <div className="relative mx-auto w-full max-w-5xl animate-fade-up">
-        <div className="mb-6 flex items-center gap-3 font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">
-          <span className="inline-block h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse-line shadow-[0_0_12px_var(--accent-glow)]" />
-          <span>{t("badge")}</span>
-          <span className="ml-2 h-px w-12 m-stripe opacity-80" />
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_340px] lg:items-start">
+
+          {/* Left: main content */}
+          <div>
+            <div className="mb-6 flex items-center gap-3 font-mono text-xs font-medium tracking-[0.25em] text-[var(--muted)]">
+              <span className="inline-block h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse-line shadow-[0_0_12px_var(--accent-glow)]" />
+              <span>{t("badge")}</span>
+              <span className="ml-2 h-px w-12 m-stripe opacity-80" />
+            </div>
+
+            <h1 className="text-balance text-4xl font-light leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+              {t("headline")}
+              <br className="hidden sm:block" />{" "}
+              <span className="font-semibold text-[var(--accent)] text-glow">{t("headlineAccent")}</span>{" "}
+              {t("headlineConnector")}{" "}
+              <span className="font-extralight italic text-[var(--muted)]">{t("headlineItalic")}</span>
+            </h1>
+
+            <p className="mt-8 max-w-2xl text-base font-normal leading-relaxed text-[var(--muted)] sm:text-lg">
+              <HeroBio t={t} />
+            </p>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="#projects"
+                className="group relative inline-flex h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--accent)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-white transition-all hover:shadow-[0_0_40px_var(--accent-glow)]"
+              >
+                <span className="relative z-10">{t("ctaProjects")}</span>
+                <span className="relative z-10 transition-transform group-hover:translate-x-1">→</span>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:animate-sweep group-hover:opacity-100"
+                />
+              </a>
+              <a
+                href="#about"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-strong)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-foreground transition-colors hover:border-foreground"
+              >
+                {t("ctaAbout")}
+              </a>
+            </div>
+
+            <TelemetryReadout />
+          </div>
+
+          {/* Right: driver quote */}
+          <div className="hidden lg:flex lg:items-center lg:justify-end">
+            <DriverQuote />
+          </div>
         </div>
-
-        <h1 className="text-balance text-4xl font-light leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-          {t("headline")}
-          <br className="hidden sm:block" />{" "}
-          <span className="font-semibold text-[var(--accent)] text-glow">{t("headlineAccent")}</span>{" "}
-          {t("headlineConnector")}{" "}
-          <span className="font-extralight italic text-[var(--muted)]">{t("headlineItalic")}</span>
-        </h1>
-
-        <p className="mt-8 max-w-2xl text-base font-normal leading-relaxed text-[var(--muted)] sm:text-lg">
-          <HeroBio t={t} />
-        </p>
-
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href="#projects"
-            className="group relative inline-flex h-12 items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--accent)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-white transition-all hover:shadow-[0_0_40px_var(--accent-glow)]"
-          >
-            <span className="relative z-10">{t("ctaProjects")}</span>
-            <span className="relative z-10 transition-transform group-hover:translate-x-1">→</span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:animate-sweep group-hover:opacity-100"
-            />
-          </a>
-          <a
-            href="#about"
-            className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--border-strong)] px-6 font-mono text-xs font-medium tracking-[0.2em] text-foreground transition-colors hover:border-foreground"
-          >
-            {t("ctaAbout")}
-          </a>
-        </div>
-
-        <TelemetryReadout />
       </div>
     </section>
   );
@@ -77,6 +89,56 @@ function HeroBio({ t }: { t: ReturnType<typeof useTranslations<"hero">> }) {
         return <span key={i}>{part}</span>;
       })}
     </>
+  );
+}
+
+function DriverQuote() {
+  return (
+    <figure
+      className="glass-strong relative flex w-72 shrink-0 flex-col items-center gap-6 overflow-hidden rounded-2xl p-6 text-center"
+      style={{ boxShadow: "0 0 0 1px var(--border-strong), 0 24px 48px rgba(0,0,0,0.4)" }}
+    >
+      {/* top stripe */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-[2px] m-stripe" />
+
+      {/* faint #1 watermark */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-3 -top-4 font-mono text-[7rem] font-black leading-none text-white/[0.03] select-none"
+      >
+        #1
+      </span>
+
+      {/* image */}
+      <div
+        className="relative h-44 w-44 overflow-hidden rounded-xl"
+        style={{
+          boxShadow: "0 0 0 1px rgba(255,255,255,0.10), 0 0 24px rgba(255,45,58,0.15), 0 12px 40px rgba(0,0,0,0.7)",
+        }}
+      >
+        <Image
+          src="/max-verstappen.png"
+          alt="Max Verstappen"
+          fill
+          className="object-cover object-top"
+          sizes="176px"
+        />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/70 to-transparent" />
+      </div>
+
+      {/* quote */}
+      <div className="flex flex-col items-center gap-3">
+        <span aria-hidden className="h-px w-8 m-stripe rounded-full" />
+        <blockquote className="text-sm italic font-light leading-relaxed text-foreground/75">
+          &ldquo;No importa cuán bueno seas, siempre hay algo nuevo por aprender.&rdquo;
+        </blockquote>
+        <figcaption className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-foreground/60">
+          MAX VERSTAPPEN
+          <span className="h-3 w-px bg-[var(--border-strong)]" />
+          <span className="text-[var(--accent)] text-glow">#1</span>
+        </figcaption>
+      </div>
+    </figure>
   );
 }
 
